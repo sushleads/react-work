@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-const App = props => {
-    const [ personState, setPersonState ] = useState({
+class App extends Component {
+    state = {
       persons : [
         {name: 'Sushant', age:36},
         {name: 'Madhavi', age:34},
@@ -13,30 +13,33 @@ const App = props => {
         {state: 'Jharkhand', country: 'India'},
         {state: 'London', country: 'UK'}
       ]
-    });
+    }
 
-    const switchNameHandler = () => {
+    switchNameHandler = () => {
       //console.log('Button was clicked')
-      setPersonState({
+      this.setState({
         persons : [
           {name: 'Sushant Kumar', age:36},
           {name: 'Madhavi Ojha', age:35},
           {name: 'Shlok Sushant',  age:5.5}
         ],
-        otherDetails : personState.otherDetails
+        otherDetails : this.state.otherDetails
       })
     }
     
-    return (
+    render(){
+      return (
        <div className="App">
          <h1>Hi I'm a React app</h1>
-         <button onClick={switchNameHandler}>Switch name</button>
-         <Person name={personState.persons[0].name} age={personState.persons[0].age}>My Hobbies : Blog writing , Cricket analysis</Person>
-         <Person name={personState.persons[1].name} age={personState.persons[1].age}/>
-         <Person name={personState.persons[2].name} age={personState.persons[2].age}/>
-         <h1>{personState.otherDetails[0].country}</h1>
+         <button onClick={this.switchNameHandler}>Switch name</button>
+         <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>My Hobbies : Blog writing , Cricket analysis</Person>
+         <Person name={this.state.persons[1].name} age={this.state.persons[1].age}/>
+         <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+         <h1>{this.state.otherDetails[0].country}</h1>
        </div>
-     );
+     )
+    }
+
     //return React.createElement('div', {className : 'App'}, React.createElement('h1', null, 'Hi , I \'m react app'))
 }
 
